@@ -1,778 +1,426 @@
 <!DOCTYPE html>
 <html lang="cs" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WHC s.r.o. | Inovace v PropTech, Softwaru a Strategiích</title>
-    <meta name="description" content="Vyvíjíme pokročilé nástroje pro Spatial Computing, navrhujeme komplexní softwarové ekosystémy a řídíme strategické dotační projekty.">
-        <!-- Favicon -->
-        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2314b8a6' width='100' height='100' rx='20'/><text x='50' y='70' font-size='70' font-weight='bold' text-anchor='middle' fill='white' font-family='Arial'>W</text></svg>">
-        <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2314b8a6' width='180' height='180' rx='40'/><text x='90' y='130' font-size='120' font-weight='bold' text-anchor='middle' fill='white' font-family='Arial'>W</text></svg>">
-    
-        <!-- OG Image -->
-        <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'><rect fill='%230f172a' width='1200' height='630'/><rect fill='%2314b8a6' x='50' y='50' width='100' height='100' rx='20'/><text x='200' y='120' font-size='60' font-weight='bold' fill='white' font-family='Arial'>WHC</text></svg>">
-    
-    <!-- Open Graph pro hezké sdílení na sítích -->
-    <meta property="og:title" content="WHC s.r.o. | Technologická integrace & Strategie">
-    <meta property="og:description" content="Propojujeme fyzický svět s digitální realitou pomocí LiDAR, BIM a AI.">
-    <meta property="og:type" content="website">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WHC s.r.o. | Technologická Integrace & Strategie</title>
+  <meta name="description" content="Vyvíjíme pokročilé nástroje pro Spatial Computing, navrhujeme komplexní softwarové ekosystémy a řídíme strategické dotační projekty.">
+  <meta property="og:title" content="WHC s.r.o. | Technologická Integrace & Strategie">
+  <meta property="og:description" content="Propojujeme fyzický svět s digitální realitou pomocí LiDAR, BIM a AI.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'><rect fill='%230f172a' width='1200' height='630'/><text x='100' y='320' font-size='84' fill='white' font-family='Arial'>WHC s.r.o.</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2314b8a6' width='100' height='100' rx='18'/><text x='50' y='70' font-size='64' font-family='Arial' text-anchor='middle' fill='white'>W</text></svg>">
 
-    <!-- JSON-LD Schema Markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "WHC s.r.o.",
-      "description": "Inženýrská a poradenská společnost specialistů v Spatial Computing, BIM a dotačních strategiích",
-      "url": "https://whc.cz",
-      "logo": "https://whc.cz/logo.png",
-      "sameAs": [],
-      "contact": {
-        "@type": "ContactPoint",
-        "telephone": "+420-xxx-xxx-xxx",
-        "contactType": "Customer Support",
-        "email": "info@whc.cz"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "CZ"
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              500: '#14b8a6',
+              600: '#0d9488'
+            },
+            dark: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      transition: background-color .25s, color .25s;
+    }
+    .glass {
+      background: rgba(30, 41, 59, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+    body.light-mode {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    body.light-mode .theme-text,
+    body.light-mode .text-slate-300,
+    body.light-mode .text-slate-400,
+    body.light-mode .text-slate-500 {
+      color: #475569;
+    }
+    body.light-mode .dark-900 { background-color: #f8fafc; }
+    body.light-mode .dark-800 { background-color: #e2e8f0; }
+    body.light-mode .dark-700 { background-color: #cbd5e1; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="antialiased selection:bg-brand-500 selection:text-white">
+
+  <nav id="navbar" class="fixed top-0 z-40 w-full glass transition-all">
+    <div class="container mx-auto flex items-center justify-between px-6 py-4">
+      <a href="#" class="flex items-center gap-2 text-xl font-extrabold text-white">
+        <i data-lucide="hexagon" class="h-7 w-7 text-brand-500"></i>
+        WHC <span class="text-xs font-normal text-brand-500">s.r.o.</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-slate-300">
+        <a href="#o-nas" class="hover:text-brand-500">Kdo jsme</a>
+        <a href="#expertyza" class="hover:text-brand-500">Expertyza</a>
+        <a href="#tech-stack" class="hover:text-brand-500">Tech Stack</a>
+        <a href="#kontakt" class="hover:text-brand-500">Kontakt</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle" class="rounded-full p-2 text-slate-300 hover:text-white" aria-label="Přepnout režim">
+          <i data-lucide="moon" class="theme-icon h-5 w-5"></i>
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden text-slate-300" aria-label="Otevřít menu">
+          <i data-lucide="menu" class="h-6 w-6"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-slate-700 bg-dark-800 px-6 py-5 md:hidden">
+      <div class="flex flex-col gap-4 text-center text-slate-300">
+        <a href="#o-nas">Kdo jsme</a>
+        <a href="#expertyza">Expertyza</a>
+        <a href="#tech-stack">Tech Stack</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="relative overflow-hidden pt-32 pb-20 md:pt-44 md:pb-28">
+    <div class="absolute left-1/2 top-0 h-[480px] w-[1000px] -translate-x-1/2 opacity-20">
+      <div class="h-full w-full rounded-full bg-gradient-to-r from-brand-500 to-cyan-500 blur-[110px]"></div>
+    </div>
+    <div class="container relative z-10 mx-auto max-w-4xl px-6 text-center">
+      <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-400">Technologická integrace & strategie</p>
+      <h1 class="mb-7 text-5xl font-extrabold leading-tight text-white md:text-7xl">
+        Propojujeme fyzický svět s <span class="bg-gradient-to-r from-brand-400 to-cyan-400 bg-clip-text text-transparent">digitální realitou</span>
+      </h1>
+      <p class="theme-text mb-9 text-lg text-slate-400 md:text-xl">
+        Vyvíjíme nástroje pro Spatial Computing, navrhujeme robustní software a pomáháme klientům proměnit investiční záměry v reálný výsledek.
+      </p>
+      <div class="flex flex-col justify-center gap-4 sm:flex-row">
+        <a href="#expertyza" class="rounded-full bg-brand-600 px-8 py-3.5 font-semibold text-white hover:bg-brand-500">Prozkoumat zaměření</a>
+        <a href="#kontakt" class="rounded-full border border-slate-600 bg-dark-800 px-8 py-3.5 font-semibold text-slate-200 hover:border-slate-400">Nezávazná konzultace</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="expertyza" class="border-y border-slate-800 bg-dark-900 py-24">
+    <div class="container mx-auto px-6">
+      <div class="mb-14 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Oblasti naší expertyzy</h2>
+        <p class="theme-text mx-auto max-w-2xl text-slate-400">Spojujeme engineering, data a strategii do jednoho funkčního celku.</p>
+      </div>
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <article class="glass rounded-3xl p-8">
+          <i data-lucide="scan-line" class="mb-5 h-8 w-8 text-brand-400"></i>
+          <h3 class="mb-2 text-xl font-bold text-white">Spatial Computing & LiDAR</h3>
+          <p class="theme-text text-sm leading-relaxed text-slate-400">Nativní iOS řešení, RoomPlan API a 3D skenování prostor pro digitalizaci budov.</p>
+        </article>
+        <article class="glass rounded-3xl p-8">
+          <i data-lucide="server" class="mb-5 h-8 w-8 text-cyan-400"></i>
+          <h3 class="mb-2 text-xl font-bold text-white">Systémová architektura</h3>
+          <p class="theme-text text-sm leading-relaxed text-slate-400">Backend, datové modely, cloud infrastruktura a bezpečné integrační toky.</p>
+        </article>
+        <article class="glass rounded-3xl p-8">
+          <i data-lucide="building-2" class="mb-5 h-8 w-8 text-indigo-400"></i>
+          <h3 class="mb-2 text-xl font-bold text-white">Digitalizace & Light BIM</h3>
+          <p class="theme-text text-sm leading-relaxed text-slate-400">Napojení fyzických skenů na BIM procesy, CDE a energetické podklady.</p>
+        </article>
+      </div>
+      <article class="glass mt-8 rounded-3xl p-8">
+        <i data-lucide="briefcase" class="mb-5 h-8 w-8 text-emerald-400"></i>
+        <h3 class="mb-2 text-xl font-bold text-white">Dotační strategie a projektové řízení</h3>
+        <p class="theme-text text-sm leading-relaxed text-slate-400">Řízení investičních celků, dotační titulování (NPO, IROP, OP TAK, SFPI) a optimalizace návratnosti kapitálu.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="border-b border-slate-800 bg-dark-800 py-12">
+    <div class="container mx-auto px-6">
+      <p class="mb-6 text-center text-xs uppercase tracking-[0.2em] text-slate-500">Důvěra & standard</p>
+      <div class="grid grid-cols-2 gap-5 text-center sm:grid-cols-5">
+        <div><p class="text-2xl">🏢</p><p class="text-xs text-slate-400">Enterprise-ready</p></div>
+        <div><p class="text-2xl">🔒</p><p class="text-xs text-slate-400">Security-first</p></div>
+        <div><p class="text-2xl">⚡</p><p class="text-xs text-slate-400">99.9% SLA</p></div>
+        <div><p class="text-2xl">🇪🇺</p><p class="text-xs text-slate-400">GDPR</p></div>
+        <div><p class="text-2xl">✅</p><p class="text-xs text-slate-400">Cloud-native</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tech-stack" class="border-y border-slate-800 bg-dark-900 py-20">
+    <div class="container mx-auto px-6 text-center">
+      <p class="mb-10 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Náš technologický stack</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <span class="rounded-xl border border-slate-700 bg-dark-800 px-5 py-2.5 text-sm text-slate-300">Swift / iOS Native</span>
+        <span class="rounded-xl border border-slate-700 bg-dark-800 px-5 py-2.5 text-sm text-slate-300">RealityKit / RoomPlan API</span>
+        <span class="rounded-xl border border-slate-700 bg-dark-800 px-5 py-2.5 text-sm text-slate-300">SQL / PostgreSQL</span>
+        <span class="rounded-xl border border-slate-700 bg-dark-800 px-5 py-2.5 text-sm text-slate-300">BricsCAD / LISP</span>
+        <span class="rounded-xl border border-slate-700 bg-dark-800 px-5 py-2.5 text-sm text-slate-300">AI / Machine Learning</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="o-nas" class="bg-dark-800 py-24">
+    <div class="container mx-auto max-w-4xl px-6">
+      <div class="glass rounded-3xl p-8 md:p-12">
+        <h2 class="mb-5 text-3xl font-bold text-white">O společnosti WHC</h2>
+        <p class="theme-text mb-4 leading-relaxed text-slate-400">WHC s.r.o. propojuje pokročilý technologický vývoj se strategickým řízením projektů. Od návrhu aplikace přes cloud až po dotační management.</p>
+        <p class="theme-text leading-relaxed text-slate-400">Umíme dodat kompletní řešení: od LiDAR akvizice dat přes BIM workflow až po ekonomicky smysluplnou realizaci.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-brand-500/30 bg-gradient-to-r from-brand-500/10 to-cyan-500/10 py-16">
+    <div class="container mx-auto max-w-2xl px-6 text-center">
+      <h2 class="mb-4 text-3xl font-bold text-white">Chcete zůstat v obraze?</h2>
+      <p class="theme-text mb-8 text-slate-400">Jednou za čas pošleme praktické update o Spatial Computing, BIM a inovacích.</p>
+      <form id="newsletter-form" class="mb-4 flex flex-col gap-3 sm:flex-row">
+        <input type="email" name="email" required placeholder="vase@email.cz" class="w-full flex-1 rounded-lg border border-slate-700 bg-dark-800 px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none">
+        <button type="submit" class="rounded-lg bg-brand-600 px-8 py-3 font-semibold text-white hover:bg-brand-500">Přihlásit</button>
+      </form>
+      <p class="text-xs text-slate-500">Bez spamu. Maximálně 1-2 e-maily měsíčně.</p>
+    </div>
+  </section>
+
+  <footer id="kontakt" class="border-t border-slate-800 bg-dark-900 pt-20 pb-10">
+    <div class="container mx-auto px-6">
+      <div class="mb-14 grid grid-cols-1 gap-12 md:grid-cols-2">
+        <div>
+          <h2 class="mb-5 text-3xl font-bold text-white">Spojte se s námi</h2>
+          <p class="theme-text mb-8 max-w-md text-slate-400">Hledáte technologického partnera pro vývoj, digitalizaci nebo strategické řízení projektu?</p>
+          <a href="mailto:info@whc.cz" class="inline-flex items-center rounded-full border border-brand-500/30 bg-brand-500/10 px-6 py-3 text-brand-300 hover:border-brand-500/70">
+            <i data-lucide="mail" class="mr-2 h-5 w-5"></i> info@whc.cz
+          </a>
+        </div>
+        <div class="rounded-2xl border border-slate-700 bg-dark-800/70 p-8">
+          <h3 class="mb-5 text-lg font-bold text-white">Napište nám zprávu</h3>
+          <form name="contact" method="POST" netlify class="space-y-4">
+            <input type="hidden" name="form-name" value="contact">
+            <div>
+              <label class="mb-2 block text-sm text-slate-300">Jméno</label>
+              <input type="text" name="name" required class="w-full rounded-lg border border-slate-600 bg-dark-900 px-4 py-2 text-white focus:border-brand-500 focus:outline-none" placeholder="Vaše jméno">
+            </div>
+            <div>
+              <label class="mb-2 block text-sm text-slate-300">Email</label>
+              <input type="email" name="email" required class="w-full rounded-lg border border-slate-600 bg-dark-900 px-4 py-2 text-white focus:border-brand-500 focus:outline-none" placeholder="vase@email.cz">
+            </div>
+            <div>
+              <label class="mb-2 block text-sm text-slate-300">Zpráva</label>
+              <textarea name="message" rows="4" required class="w-full resize-none rounded-lg border border-slate-600 bg-dark-900 px-4 py-2 text-white focus:border-brand-500 focus:outline-none" placeholder="Vaše zpráva..."></textarea>
+            </div>
+            <button id="contact-submit" type="submit" class="w-full rounded-lg bg-brand-600 py-2.5 font-semibold text-white hover:bg-brand-500">Odeslat</button>
+          </form>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+        &copy; <span id="year"></span> WHC s.r.o. Všechna práva vyhrazena.
+      </div>
+    </div>
+  </footer>
+
+  <button id="chatbot-toggle" class="group fixed right-6 bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg shadow-brand-500/30 hover:scale-110 hover:bg-brand-500" aria-label="Otevřít AI asistenta">
+    <i data-lucide="message-square" class="absolute h-6 w-6 group-hover:hidden"></i>
+    <i data-lucide="bot" class="absolute hidden h-6 w-6 group-hover:block"></i>
+    <span class="absolute top-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-dark-900 bg-red-500"></span>
+  </button>
+
+  <div id="chatbot-window" class="pointer-events-none fixed right-6 bottom-24 z-50 flex h-[500px] max-h-[70vh] w-[360px] max-w-[calc(100vw-3rem)] translate-y-10 flex-col overflow-hidden rounded-2xl border border-slate-700 bg-dark-800 opacity-0 shadow-2xl transition-all duration-300">
+    <div class="flex items-center justify-between border-b border-slate-700 bg-dark-900 p-4">
+      <div class="flex items-center gap-3">
+        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-500/20">
+          <i data-lucide="bot" class="h-5 w-5 text-brand-500"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-white">WHC AI Asistent</h3>
+          <p class="text-xs text-brand-400">Online</p>
+        </div>
+      </div>
+      <button id="chatbot-close" class="text-slate-400 hover:text-white" aria-label="Zavřít chat">
+        <i data-lucide="x" class="h-5 w-5"></i>
+      </button>
+    </div>
+
+    <div id="chat-messages" class="no-scrollbar flex-1 space-y-4 overflow-y-auto bg-dark-800/40 p-4">
+      <div class="flex gap-3">
+        <div class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+          <i data-lucide="bot" class="h-3.5 w-3.5 text-brand-500"></i>
+        </div>
+        <div class="max-w-[85%] rounded-2xl rounded-tl-sm border border-slate-600 bg-dark-700 p-3 text-sm text-slate-200">
+          Ahoj, jsem virtuální asistent WHC. Můžu pomoci s dotazy k LiDAR, BIM, digitalizaci nebo dotačním strategiím.
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-slate-700 bg-dark-900 p-4">
+      <form id="chat-form" class="flex gap-2">
+        <input id="chat-input" type="text" placeholder="Napište dotaz..." autocomplete="off" class="flex-1 rounded-full border border-slate-700 bg-dark-800 px-4 py-2 text-sm text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none">
+        <button type="submit" class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-white hover:bg-brand-500" aria-label="Odeslat">
+          <i data-lucide="send" class="h-4 w-4"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.querySelector('.theme-icon');
+    let isDarkMode = localStorage.getItem('theme') === 'dark' || (localStorage.getItem('theme') === null && prefersDark);
+
+    function updateTheme() {
+      if (isDarkMode) {
+        document.body.classList.remove('light-mode');
+        themeIcon.setAttribute('data-lucide', 'moon');
+      } else {
+        document.body.classList.add('light-mode');
+        themeIcon.setAttribute('data-lucide', 'sun');
+      }
+      lucide.createIcons();
+    }
+
+    updateTheme();
+    themeToggle.addEventListener('click', () => {
+      isDarkMode = !isDarkMode;
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      updateTheme();
+    });
+
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 24) {
+        navbar.classList.add('bg-dark-900/90', 'border-b', 'border-slate-800');
+      } else {
+        navbar.classList.remove('bg-dark-900/90', 'border-b', 'border-slate-800');
+      }
+    });
+
+    const contactForm = document.querySelector('form[name="contact"]');
+    if (contactForm) {
+      const contactSubmit = document.getElementById('contact-submit');
+      contactForm.addEventListener('submit', () => {
+        contactSubmit.disabled = true;
+        contactSubmit.textContent = 'Odesílám...';
+      });
+    }
+
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const button = newsletterForm.querySelector('button');
+        const input = newsletterForm.querySelector('input[name="email"]');
+        const original = button.textContent;
+        button.disabled = true;
+        button.textContent = 'Přihlašuji...';
+        setTimeout(() => {
+          input.value = '';
+          button.textContent = 'Děkujeme';
+          setTimeout(() => {
+            button.textContent = original;
+            button.disabled = false;
+          }, 1300);
+        }, 900);
+      });
+    }
+
+    const chatToggle = document.getElementById('chatbot-toggle');
+    const chatWindow = document.getElementById('chatbot-window');
+    const chatClose = document.getElementById('chatbot-close');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+    let chatOpen = false;
+
+    function toggleChat() {
+      chatOpen = !chatOpen;
+      if (chatOpen) {
+        chatWindow.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+        const dot = chatToggle.querySelector('.bg-red-500');
+        if (dot) dot.style.display = 'none';
+        setTimeout(() => chatInput.focus(), 180);
+      } else {
+        chatWindow.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
       }
     }
-    </script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdfa',
-                            500: '#14b8a6', // Teal
-                            600: '#0d9488',
-                            900: '#134e4a',
-                        },
-                        dark: {
-                            900: '#0f172a',
-                            800: '#1e293b',
-                            700: '#334155',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    animation: {
-                        'bounce-slow': 'bounce 3s infinite',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-        
-        /* Dark Mode (výchozí) */
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #0f172a; 
-            color: #f8fafc;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        /* Light Mode */
-        body.light-mode {
-            background-color: #f8fafc;
-            color: #0f172a;
-        }
-        
-        body.light-mode .glass-panel {
-            background: rgba(226, 232, 240, 0.7);
-            border-color: rgba(30, 41, 59, 0.1);
-        }
-        
-        body.light-mode .dark-900 { background-color: #f1f5f9; }
-        body.light-mode .dark-800 { background-color: #e2e8f0; }
-        body.light-mode .dark-700 { background-color: #cbd5e1; }
-        
-        body.light-mode .text-slate-300 { color: #64748b; }
-        body.light-mode .text-slate-400 { color: #94a3b8; }
-        body.light-mode .text-slate-500 { color: #64748b; }
-        
-        .glass-panel { 
-            background: rgba(30, 41, 59, 0.7); 
-            backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-        
-        /* Skrytí scrollbaru pro chat */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
-</head>
-<body class="antialiased selection:bg-brand-500 selection:text-white relative">
+    chatToggle.addEventListener('click', toggleChat);
+    chatClose.addEventListener('click', toggleChat);
 
-    <!-- Navigace -->
-    <nav class="fixed w-full z-40 glass-panel border-b-0 transition-all duration-300" id="navbar">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-extrabold tracking-tighter text-white flex items-center gap-2">
-                <i data-lucide="hexagon" class="text-brand-500 w-8 h-8"></i>
-                WHC<span class="text-brand-500 text-sm font-normal tracking-normal ml-1 mb-2">s.r.o.</span>
-            </div>
-            
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
-                <a href="#o-nas" class="hover:text-brand-500 transition-colors">Kdo jsme</a>
-                <a href="#expertyza" class="hover:text-brand-500 transition-colors">Expertyza</a>
-                <a href="#projekty" class="hover:text-brand-500 transition-colors">Produkty</a>
-                <a href="#tech-stack" class="hover:text-brand-500 transition-colors">Tech Stack</a>
-            </div>
+    function appendMessage(text, isUser) {
+      const wrapper = document.createElement('div');
+      wrapper.className = `flex gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
+      const icon = isUser
+        ? ''
+        : '<div class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-500/20"><i data-lucide="bot" class="h-3.5 w-3.5 text-brand-500"></i></div>';
+      const bubbleClass = isUser
+        ? 'max-w-[85%] rounded-2xl rounded-tr-sm border border-brand-500 bg-brand-600 p-3 text-sm text-white'
+        : 'max-w-[85%] rounded-2xl rounded-tl-sm border border-slate-600 bg-dark-700 p-3 text-sm text-slate-200';
+      wrapper.innerHTML = `${icon}<div class="${bubbleClass}">${text}</div>`;
+      chatMessages.appendChild(wrapper);
+      lucide.createIcons();
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
-            <div class="hidden md:flex items-center space-x-4">
-                <button id="theme-toggle" class="p-2 text-slate-400 hover:text-white transition-colors" aria-label="Přepnout režim">
-                    <i data-lucide="moon" class="w-5 h-5 theme-icon"></i>
-                </button>
-                <a href="#kontakt" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-brand-600 rounded-full hover:bg-brand-500 transition-all shadow-lg hover:shadow-brand-500/50">
-                    Kontakt
-                </a>
-            </div>
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const question = chatInput.value.trim();
+      if (!question) return;
 
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden text-slate-300 hover:text-white" id="mobile-menu-btn" aria-label="Otevřít menu">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-dark-800 border-t border-slate-700 absolute w-full" id="mobile-menu">
-            <div class="px-4 py-6 space-y-4 text-center flex flex-col">
-                <a href="#o-nas" class="text-slate-300 hover:text-brand-500">Kdo jsme</a>
-                <a href="#expertyza" class="text-slate-300 hover:text-brand-500">Expertyza</a>
-                <a href="#projekty" class="text-slate-300 hover:text-brand-500">Produkty</a>
-                <a href="#kontakt" class="text-brand-500 font-bold">Kontakt</a>
-            </div>
-        </div>
-    </nav>
+      appendMessage(question, true);
+      chatInput.value = '';
 
-    <!-- Hero Sekce -->
-    <header class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-20 pointer-events-none">
-            <div class="absolute inset-0 bg-gradient-to-r from-brand-500 to-blue-600 blur-[100px] rounded-full mix-blend-screen animate-pulse"></div>
-        </div>
+      const typing = document.createElement('div');
+      typing.id = 'typing';
+      typing.className = 'ml-9 text-xs italic text-slate-500';
+      typing.textContent = 'AI přemýšlí...';
+      chatMessages.appendChild(typing);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
 
-        <div class="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold uppercase tracking-wider mb-6">
-                <span class="w-2 h-2 rounded-full bg-brand-500 animate-bounce"></span>
-                Technologická integrace & Strategie
-            </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight text-white">
-                Propojujeme fyzický svět s <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-400">digitální realitou</span>
-            </h1>
-            <p class="text-lg md:text-xl text-slate-400 mb-10 leading-relaxed max-w-3xl mx-auto">
-                Jsme inženýrská a poradenská společnost. Vyvíjíme pokročilé nástroje pro Spatial Computing, navrhujeme komplexní softwarové ekosystémy a řídíme strategické dotační projekty.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#expertyza" class="px-8 py-3.5 text-base font-semibold text-white bg-brand-600 rounded-full hover:bg-brand-500 transition-all shadow-lg hover:shadow-brand-500/50">
-                    Prozkoumat zaměření
-                </a>
-                <a href="#tech-stack" class="px-8 py-3.5 text-base font-semibold text-slate-300 bg-dark-800 border border-slate-700 rounded-full hover:bg-dark-700 hover:border-slate-500 transition-all">
-                    Náš tech stack
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Expertyza -->
-    <section id="expertyza" class="py-24 bg-dark-900 border-t border-slate-800">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Oblasti naší expertyzy</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">Synergie mezi hlubokým technologickým vývojem a strategickým řízením investic tvoří naši hlavní konkurenční výhodu.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Karta 1 -->
-                <div class="glass-panel p-8 rounded-3xl hover:-translate-y-2 hover:border-brand-500/50 transition-all duration-300 group">
-                    <div class="w-14 h-14 bg-brand-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500/20 transition-colors">
-                        <i data-lucide="scan-line" class="w-7 h-7 text-brand-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Spatial Computing & LiDAR</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Nativní vývoj pro ekosystém Apple. Využíváme RoomPlan API, RealityKit a LiDAR senzory pro pokročilé 3D skenování budov a digitalizaci prostor.
-                    </p>
-                </div>
-
-                <!-- Karta 2 -->
-                <div class="glass-panel p-8 rounded-3xl hover:-translate-y-2 hover:border-blue-500/50 transition-all duration-300 group">
-                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
-                        <i data-lucide="server" class="w-7 h-7 text-blue-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Systémová architektura</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Návrh a implementace komplexních softwarových ekosystémů. Od relačních databází přes cloudovou infrastrukturu až po CI/CD pipelines.
-                    </p>
-                </div>
-
-                <!-- Karta 3 -->
-                <div class="glass-panel p-8 rounded-3xl hover:-translate-y-2 hover:border-purple-500/50 transition-all duration-300 group">
-                    <div class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
-                        <i data-lucide="building-2" class="w-7 h-7 text-purple-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Digitalizace & Light BIM</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Propojujeme fyzické skeny s procesy ve stavebnictví. Integrace do CDE, příprava pro IFC standardy a podklady pro energetické výpočty (PENB).
-                    </p>
-                </div>
-
-                <!-- Karta 4 (Široká) -->
-                <div class="glass-panel p-8 rounded-3xl hover:-translate-y-2 hover:border-emerald-500/50 transition-all duration-300 group lg:col-span-3">
-                    <div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
-                        <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-emerald-500/20 transition-colors">
-                            <i data-lucide="briefcase" class="w-7 h-7 text-emerald-400"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white mb-2">Dotační strategie a projektové řízení</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                Zajišťujeme komplexní strategické řízení investičních celků (od brownfieldů po sportovní infrastrukturu typu WakePark). Analyzujeme dotační tituly (NPO, OP TAK, IROP, SFPI), nastavujeme holdingové struktury a maximalizujeme návratnost vloženého kapitálu pro naše partnery.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tech Stack -->
-    <section id="tech-stack" class="py-20 border-y border-slate-800 bg-dark-900">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-sm font-semibold tracking-widest text-slate-500 uppercase mb-10">Náš Technologický Stack</p>
-            <div class="flex flex-wrap justify-center gap-4 md:gap-6">
-                <div class="px-5 py-2.5 bg-dark-800 border border-slate-700 rounded-xl text-slate-300 font-mono text-sm flex items-center gap-2 hover:border-brand-500 hover:text-white transition-all cursor-default">
-                    <i data-lucide="apple" class="w-4 h-4"></i> Swift / iOS Native
-                </div>
-                <div class="px-5 py-2.5 bg-dark-800 border border-slate-700 rounded-xl text-slate-300 font-mono text-sm flex items-center gap-2 hover:border-brand-500 hover:text-white transition-all cursor-default">
-                    <i data-lucide="box" class="w-4 h-4"></i> RealityKit / RoomPlan API
-                </div>
-                <div class="px-5 py-2.5 bg-dark-800 border border-slate-700 rounded-xl text-slate-300 font-mono text-sm flex items-center gap-2 hover:border-blue-500 hover:text-white transition-all cursor-default">
-                    <i data-lucide="database" class="w-4 h-4"></i> SQL / PostgreSQL
-                </div>
-                <div class="px-5 py-2.5 bg-dark-800 border border-slate-700 rounded-xl text-slate-300 font-mono text-sm flex items-center gap-2 hover:border-purple-500 hover:text-white transition-all cursor-default">
-                    <i data-lucide="layers" class="w-4 h-4"></i> BricsCAD / LISP
-                </div>
-                <div class="px-5 py-2.5 bg-dark-800 border border-slate-700 rounded-xl text-slate-300 font-mono text-sm flex items-center gap-2 hover:border-emerald-500 hover:text-white transition-all cursor-default">
-                    <i data-lucide="bot" class="w-4 h-4"></i> AI / Machine Learning
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- O nás -->
-    <section id="o-nas" class="py-24 bg-dark-800 relative">
-        <div class="container mx-auto px-6 max-w-4xl">
-            <div class="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-                <h2 class="text-3xl font-bold text-white mb-6 relative z-10">O společnosti WHC</h2>
-                <div class="space-y-6 text-slate-400 leading-relaxed relative z-10">
-                    <p>
-                        WHC s.r.o. byla založena s vizí propojit hluboké technologické znalosti se schopností efektivně řídit komplexní investiční a rozvojové projekty. Nejsme jen vývojáři a nejsme jen konzultanti. Jsme integrátoři obou světů.
-                    </p>
-                    <p>
-                        Dokážeme vytvořit nativní iOS aplikaci (např. WHCsurvey) snímající prostor pomocí LiDARu, zpracovat data v cloudovém portálu a následně je využít jako podklad pro přípravu BIM modelu, stanovení energetické náročnosti budovy a zajištění dotačního financování z EU fondů.
-        </div>
-                        <!-- Newsletter & CTA -->
-                        <section class="py-16 bg-gradient-to-r from-brand-500/10 to-blue-500/10 border-y border-brand-500/30">
-                            <div class="container mx-auto px-6 max-w-2xl">
-                                <div class="text-center">
-                                    <h2 class="text-3xl font-bold text-white mb-4">Chcete zůstat v obraze?</h2>
-                                    <p class="text-slate-400 mb-8">Přijďte si updates o Spatial Computing, BIM a dotačních strategiích.</p>
-                
-                                    <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 mb-4">
-                                        <input type="email" name="email" placeholder="vase@email.cz" required class="flex-1 bg-dark-800 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none transition-colors">
-                                        <button type="submit" class="px-8 py-3 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-lg transition-colors">Přihlásit</button>
-                                    </form>
-                                    <p class="text-xs text-slate-500">Nebudeme spamovat. Max 1-2x měsíčně. Kdykoliv si odhlásit.</p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- ========================================== -->
-                        <!-- WHC AI ASISTENT WIDGET                     -->
-                        <!-- ========================================== -->
-    </section>
-
-    <!-- Jak Pracujeme -->
-    <section class="py-24 bg-dark-800 border-y border-slate-800">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Jak my pracujeme</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">Náš přístup kombinuje technologickou inovaci s strategickým řízením projektů. Tady je naš standardní workflow:</p>
-            </div>
-
-            <!-- Workflow krůků -->
-            <div class="max-w-4xl mx-auto">
-                <!-- Krok 1 -->
-                <div class="flex gap-6 mb-12 relative">
-                    <!-- Čára -->
-                    <div class="absolute left-8 top-24 w-0.5 h-16 bg-gradient-to-b from-brand-500 to-transparent"></div>
-                    
-                    <div class="flex-shrink-0">
-                        <div class="w-16 h-16 rounded-full bg-brand-500/20 border-2 border-brand-500 flex items-center justify-center">
-                            <span class="text-xl font-bold text-brand-400">01</span>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <h3 class="text-xl font-bold text-white mb-2">Analýza & Strategie</h3>
-                        <p class="text-slate-400">
-                            Podrobně posoudíme vaši výzvu — technickou, organizační i finační. Společně definujeme cíle, milníky a metriky úspěchu.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Krok 2 -->
-                <div class="flex gap-6 mb-12 relative">
-                    <div class="absolute left-8 top-24 w-0.5 h-16 bg-gradient-to-b from-blue-500 to-transparent"></div>
-                    
-                    <div class="flex-shrink-0">
-                        <div class="w-16 h-16 rounded-full bg-blue-500/20 border-2 border-blue-500 flex items-center justify-center">
-                            <span class="text-xl font-bold text-blue-400">02</span>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <h3 class="text-xl font-bold text-white mb-2">Design & Architektura</h3>
-                        <p class="text-slate-400">
-                            Navrhneme systemem řešení — od mobilní aplikace přes cloudovou infrastrukturu až po datové modely. Vše se zaměřením na škálovatelnost a bezpečnost.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Krok 3 -->
-                <div class="flex gap-6 mb-12 relative">
-                    <div class="absolute left-8 top-24 w-0.5 h-16 bg-gradient-to-b from-purple-500 to-transparent"></div>
-                    
-                    <div class="flex-shrink-0">
-                        <div class="w-16 h-16 rounded-full bg-purple-500/20 border-2 border-purple-500 flex items-center justify-center">
-                            <span class="text-xl font-bold text-purple-400">03</span>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <h3 class="text-xl font-bold text-white mb-2">Vývoj & Integrace</h3>
-                        <p class="text-slate-400">
-                            Implementujeme s agilním přístupem — pravidelné iterace, code reviews, CI/CD. Propojujeme komponenty: iOS app, backend, AI modely, třetí strany.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Krok 4 -->
-                <div class="flex gap-6 mb-12 relative">
-                    <div class="absolute left-8 top-24 w-0.5 h-16 bg-gradient-to-b from-emerald-500 to-transparent"></div>
-                    
-                    <div class="flex-shrink-0">
-                        <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center">
-                            <span class="text-xl font-bold text-emerald-400">04</span>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <h3 class="text-xl font-bold text-white mb-2">Testování & Nasazení</h3>
-                        <p class="text-slate-400">
-                            Silné QA, performance testy, security audity. Nasadíme do produkce s minimálním rizikem — beta verze, monitoring, a 24/7 support.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Krok 5 (poslední - bez čáry) -->
-                <div class="flex gap-6 relative">
-                    <div class="flex-shrink-0">
-                        <div class="w-16 h-16 rounded-full bg-indigo-500/20 border-2 border-indigo-500 flex items-center justify-center">
-                            <span class="text-xl font-bold text-indigo-400">05</span>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <h3 class="text-xl font-bold text-white mb-2">Optimalizace & Růst</h3>
-                        <p class="text-slate-400">
-                            Monitorujeme metriky, optimalizujeme performance, přidáváme nové features. Dlouhodobá podpora a evoluce vašeho řešení.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Výhody přístupu -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 pt-16 border-t border-slate-700">
-                <div class="text-center">
-                    <div class="text-3xl mb-3">🎯</div>
-                    <h4 class="text-lg font-bold text-white mb-2">Zaměřeno na výsledky</h4>
-                    <p class="text-sm text-slate-400">Vždy víme, proč to děláme. Každá rozhodnutí je odvozena od vašich obchodních cílů.</p>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl mb-3">⚡</div>
-                    <h4 class="text-lg font-bold text-white mb-2">Agile & Flexibilní</h4>
-                    <p class="text-sm text-slate-400">Pružně reagujeme na změny. Pravidelné sprinty a retrospektivy zajišťují správný směr.</p>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl mb-3">🔒</div>
-                    <h4 class="text-lg font-bold text-white mb-2">Bezpečnost & Škála</h4>
-                    <p class="text-sm text-slate-400">Enterprise-level přístup i pro malé projekty. Bezpečnost a performance jsou priority.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer & Kontakt -->
-    <footer id="kontakt" class="bg-dark-900 pt-20 pb-10 border-t border-slate-800">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                <div>
-                    <h2 class="text-3xl font-bold text-white mb-6">Spojte se s námi</h2>
-                    <p class="text-slate-400 mb-8 max-w-md">
-                        Hledáte technologického partnera pro vývoj PropTech řešení, začlenění do Apple ekosystému nebo potřebujete strategické řízení vašeho projektu?
-                    </p>
-                    <div class="space-y-3 flex flex-col">
-                        <a href="mailto:info@whc.cz" class="inline-flex items-center text-lg font-semibold text-brand-400 hover:text-brand-300 transition-colors bg-brand-500/10 px-6 py-3 rounded-full border border-brand-500/20 hover:border-brand-500/50 w-fit">
-                            <i data-lucide="mail" class="w-5 h-5 mr-3"></i> info@whc.cz
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-dark-800/50 p-8 rounded-2xl border border-slate-700">
-                    <h3 class="text-lg font-bold text-white mb-6 flex items-center">
-                        <i data-lucide="send" class="w-5 h-5 mr-2 text-brand-500"></i> Napište nám zprávu
-                    </h3>
-                    <form name="contact" method="POST" netlify class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">Jméno</label>
-                            <input type="text" name="name" required class="w-full bg-dark-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-brand-500 focus:outline-none transition-colors" placeholder="Vaše jméno">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">Email</label>
-                            <input type="email" name="email" required class="w-full bg-dark-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-brand-500 focus:outline-none transition-colors" placeholder="vase@email.cz">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-300 mb-2">Zpráva</label>
-                            <textarea name="message" rows="4" required class="w-full bg-dark-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:border-brand-500 focus:outline-none transition-colors resize-none" placeholder="Vaša zpráva..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-2 rounded-lg transition-colors">
-                            Odeslat
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-slate-800 pt-8">
-                <div>
-                    <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3">Záměr</h4>
-                    <ul class="space-y-2 text-xs text-slate-500">
-                        <li><a href="#expertyza" class="hover:text-brand-400 transition-colors">Spatial Computing</a></li>
-                        <li><a href="#expertyza" class="hover:text-brand-400 transition-colors">Systémová Architektura</a></li>
-                        <li><a href="#expertyza" class="hover:text-brand-400 transition-colors">BIM & Digitalizace</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3">Společnost</h4>
-                    <ul class="space-y-2 text-xs text-slate-500">
-                        <li><strong>WHC s.r.o.</strong></li>
-                        <li>IČO: [Vaše IČO]</li>
-                        <li><a href="mailto:info@whc.cz" class="hover:text-brand-400 transition-colors">info@whc.cz</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3">Sítě</h4>
-                    <ul class="space-y-2 text-xs text-slate-500">
-                        <li><a href="#" class="hover:text-brand-400 transition-colors">LinkedIn</a></li>
-                        <li><a href="#" class="hover:text-brand-400 transition-colors">GitHub</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center border-t border-slate-800 mt-8 pt-8 text-slate-500 text-sm">
-                &copy; <span id="year"></span> WHC s.r.o. Všechna práva vyhrazena.
-            </div>
-        </div>
-    </footer>
-
-
-    <!-- ========================================== -->
-    <!-- WHC AI ASISTENT WIDGET                     -->
-    <!-- ========================================== -->
-    
-    <!-- Tlačítko pro otevření chatu (vpravo dole) -->
-    <button id="chatbot-toggle" class="fixed bottom-6 right-6 w-14 h-14 bg-brand-600 hover:bg-brand-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-brand-500/30 transition-all hover:scale-110 z-50 group" aria-label="Otevřít AI Asistenta">
-        <i data-lucide="message-square" class="w-6 h-6 group-hover:hidden absolute"></i>
-        <i data-lucide="bot" class="w-6 h-6 hidden group-hover:block absolute"></i>
-        <!-- Malá notifikace (červený puntík) -->
-        <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 border-2 border-dark-900 rounded-full"></span>
-    </button>
-
-    <!-- Chatovací okno (skryté ve výchozím stavu) -->
-    <div id="chatbot-window" class="fixed bottom-24 right-6 w-[350px] max-w-[calc(100vw-3rem)] h-[500px] max-h-[70vh] bg-dark-800 border border-slate-700 rounded-2xl shadow-2xl flex flex-col z-50 opacity-0 translate-y-10 pointer-events-none transition-all duration-300 overflow-hidden">
-        
-        <!-- Header -->
-        <div class="bg-dark-900 border-b border-slate-700 p-4 flex justify-between items-center shrink-0">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-brand-500/20 rounded-full flex items-center justify-center">
-                    <i data-lucide="bot" class="w-5 h-5 text-brand-500"></i>
-                </div>
-                <div>
-                    <h3 class="text-sm font-bold text-white">WHC AI Asistent</h3>
-                    <p class="text-xs text-brand-400 flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 bg-brand-500 rounded-full inline-block animate-pulse"></span> Online
-                    </p>
-                </div>
-            </div>
-            <button id="chatbot-close" class="text-slate-400 hover:text-white transition-colors">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-        </div>
-
-        <!-- Tělo zpráv -->
-        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar bg-dark-800/50">
-            <!-- Úvodní zpráva od AI -->
-            <div class="flex gap-3">
-                <div class="w-6 h-6 bg-brand-500/20 rounded-full flex items-center justify-center shrink-0 mt-1">
-                    <i data-lucide="bot" class="w-3.5 h-3.5 text-brand-500"></i>
-                </div>
-                <div class="bg-dark-700 text-slate-200 text-sm p-3 rounded-2xl rounded-tl-sm border border-slate-600 shadow-sm">
-                    Ahóój! Jsem virtuální asistent WHC. 👋 Můžu vám pomoci najít informace o digitalizaci budov, Apple ekosystému, nebo našich dotačních službách?
-                </div>
-            </div>
-        </div>
-
-        <!-- Input pro psaní -->
-        <div class="p-4 border-t border-slate-700 bg-dark-900 shrink-0">
-            <form id="chat-form" class="flex gap-2">
-                <input type="text" id="chat-input" placeholder="Zeptejte se na cokoliv..." class="flex-1 bg-dark-800 border border-slate-700 rounded-full px-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-colors" autocomplete="off">
-                <button type="submit" class="w-10 h-10 bg-brand-600 hover:bg-brand-500 text-white rounded-full flex items-center justify-center shrink-0 transition-colors">
-                    <i data-lucide="send" class="w-4 h-4 -ml-0.5"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-    <!-- ========================================== -->
-
-    <script>
-        // Inicializace ikonek
-        lucide.createIcons();
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // --- Light Mode Toggle ---
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.querySelector('.theme-icon');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        // Načtení uloženého režimu
-        let isDarkMode = localStorage.getItem('theme') === 'dark' || (localStorage.getItem('theme') === null && prefersDark);
-        
-        function updateTheme() {
-            if (isDarkMode) {
-                document.body.classList.remove('light-mode');
-                themeIcon.setAttribute('data-lucide', 'moon');
-            } else {
-                document.body.classList.add('light-mode');
-                themeIcon.setAttribute('data-lucide', 'sun');
-            }
-        }
-                                <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3 rounded-lg transition-colors" id="contact-submit">Odeslat</button>
-        
-        updateTheme();
-        themeToggle.addEventListener('click', () => {
-            isDarkMode = !isDarkMode;
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-            updateTheme();
+      try {
+        const workerURL = 'https://YOUR_WORKER_SUBDOMAIN.workers.dev/api/chat';
+        const response = await fetch(workerURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: question,
+            context: 'Jste AI asistent společnosti WHC s.r.o. Odpovídejte česky, stručně, profesionálně a užitečně.',
+          }),
         });
 
-        // --- Logika pro mobilní menu ---
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-        menu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => menu.classList.add('hidden'));
-        });
+        document.getElementById('typing')?.remove();
 
-        // --- Ztmavení navigace při scrollu ---
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 20) {
-                nav.classList.add('bg-dark-900/90', 'border-b', 'border-slate-800');
-            } else {
-                nav.classList.remove('bg-dark-900/90', 'border-b', 'border-slate-800');
-            }
-                    // --- Newsletter Signup ---
-                    const newsletterForm = document.getElementById('newsletter-form');
-                    if (newsletterForm) {
-                        newsletterForm.addEventListener('submit', async (e) => {
-                            e.preventDefault();
-                            const email = newsletterForm.querySelector('input[name="email"]').value;
-                            const btn = newsletterForm.querySelector('button');
-                            const originalText = btn.textContent;
-                
-                            btn.disabled = true;
-                            btn.textContent = 'Přihlašuji...';
-                
-                            // Simulace odeslání (v produkci: fetch na webhook)
-                            setTimeout(() => {
-                                btn.textContent = '✓ Děkujeme!';
-                                btn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
-                                newsletterForm.querySelector('input').value = '';
-                    
-                                setTimeout(() => {
-                                    btn.textContent = originalText;
-                                    btn.disabled = false;
-                                    btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
-                                }, 2000);
-                            }, 1000);
-                        });
-                    }
-        });
-
-        // --- Contact Form UX ---
-        const contactForm = document.querySelector('form[name="contact"]');
-        if (contactForm) {
-            const submitBtn = document.getElementById('contact-submit');
-            contactForm.addEventListener('submit', () => {
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Odesílám...';
-            });
+        if (!response.ok) {
+          throw new Error('Worker request failed');
         }
 
-        // --- Newsletter Signup ---
-        const newsletterForm = document.getElementById('newsletter-form');
-        if (newsletterForm) {
-        // ==========================================
-        // --- LOGIKA AI ASISTENTA S CLOUDFLARE WORKERS ---
-        // ==========================================
-        const chatToggle = document.getElementById('chatbot-toggle');
-        const chatWindow = document.getElementById('chatbot-window');
-        const chatClose = document.getElementById('chatbot-close');
-        const chatForm = document.getElementById('chat-form');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
-        
-        let chatOpen = false;
-
-        // Otevření/zavření chatu
-        function toggleChat() {
-            chatOpen = !chatOpen;
-            if (chatOpen) {
-                chatWindow.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-                // Skrytí červené tečky (notifikace) po prvním otevření
-                chatToggle.querySelector('.bg-red-500').style.display = 'none';
-                setTimeout(() => chatInput.focus(), 300);
-            } else {
-                chatWindow.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-            }
-        }
-
-        chatToggle.addEventListener('click', toggleChat);
-        chatClose.addEventListener('click', toggleChat);
-
-        // Funkce pro přidání zprávy do UI
-        function appendMessage(text, isUser = false) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `flex gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
-            
-            const iconHTML = isUser ? '' : `
-                <div class="w-6 h-6 bg-brand-500/20 rounded-full flex items-center justify-center shrink-0 mt-1">
-                    <i data-lucide="bot" class="w-3.5 h-3.5 text-brand-500"></i>
-                </div>
-            `;
-
-            const msgStyle = isUser 
-                ? 'bg-brand-600 text-white rounded-2xl rounded-tr-sm border border-brand-500' 
-
-                <!-- Značky a certifikace -->
-                <section class="py-12 bg-dark-800 border-b border-slate-800">
-                    <div class="container mx-auto px-6">
-                        <p class="text-center text-xs text-slate-500 uppercase tracking-widest mb-6">Důvěřují nám</p>
-                        <div class="flex flex-wrap justify-center items-center gap-6">
-                            <div class="text-center">
-                                <div class="text-2xl mb-1">🏢</div>
-                                <p class="text-xs text-slate-400">Enterprise-ready</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl mb-1">🔒</div>
-                                <p class="text-xs text-slate-400">ISO 27001 zaměřeni</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl mb-1">⚡</div>
-                                <p class="text-xs text-slate-400">99.9% SLA</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl mb-1">🇪🇺</div>
-                                <p class="text-xs text-slate-400">GDPR Compliant</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-2xl mb-1">✅</div>
-                                <p class="text-xs text-slate-400">Cloud Native</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tech Stack -->
-                <section id="tech-stack" class="py-20 border-y border-slate-800 bg-dark-900">
-            msgDiv.innerHTML = `
-                ${iconHTML}
-                <div class="${msgStyle} text-sm p-3 shadow-sm max-w-[85%]">
-                    ${text}
-                </div>
-            `;
-            
-            chatMessages.appendChild(msgDiv);
-            lucide.createIcons();
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Zpracování odeslání formuláře
-        chatForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const userText = chatInput.value.trim();
-            if (!userText) return;
-
-            // 1. Přidat zprávu uživatele
-            appendMessage(userText, true);
-            chatInput.value = '';
-
-            // 2. Přidat indikátor "AI píše..."
-            const typingId = 'typing-' + Date.now();
-            const typingDiv = document.createElement('div');
-            typingDiv.id = typingId;
-            typingDiv.className = 'flex gap-3 text-slate-500 text-xs italic items-center ml-9';
-            typingDiv.innerHTML = 'AI přemýšlí...';
-            chatMessages.appendChild(typingDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // ====================================================================
-            // PROPOJENÍ S CLOUDFLARE WORKERS AI
-            // ====================================================================
-            try {
-                // Odeslání na váš Cloudflare Worker endpoint
-                // Pokud Worker nemáte, zkuste tímto mock endpointem:
-                const workerURL = 'https://your-worker-domain.workers.dev/api/chat'; // NAHRAĎTE VAŠÍ URL
-                
-                const response = await fetch(workerURL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        message: userText,
-                        context: 'Jste AI asistent společnosti WHC s.r.o. specializující se na Spatial Computing, BIM, LiDAR a dotační strategie. Odpovídejte česky a přátelsky.'
-                    })
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById(typingId)?.remove();
-                    appendMessage(data.reply || data.message || "Omlouváme se, ale server nevrátil odpověď.");
-                } else {
-                    throw new Error('Server error');
-                }
-            } catch (error) {
-                // Fallback pokud Worker není nastaven - zkuste mail
-                document.getElementById(typingId)?.remove();
-                appendMessage(
-                    "Momentálně jsem ve zkušebním režimu bez AI modelu. Vaši zprávu jsme zaznamenali na info@whc.cz. Kontaktujeme vás brzy!"
-                );
-            }
-        });
-    </script>
+        const data = await response.json();
+        appendMessage(data.reply || 'Omlouvám se, nepodařilo se mi odpovědět.', false);
+      } catch (err) {
+        document.getElementById('typing')?.remove();
+        appendMessage('Asistent není ještě napojen na backend. Prosím doplňte worker URL a API klíč.', false);
+      }
+    });
+  </script>
 </body>
 </html>

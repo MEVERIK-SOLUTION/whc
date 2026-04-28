@@ -11,6 +11,11 @@ Propojujeme Cloudflare Worker s **GitHub Models** (GPT-4o-mini).
 - **Backend:** Cloudflare Worker (free tier)
 - **Frontend:** Chatbot widget na webu
 
+Alternativně můžeš použít i **NVIDIA NIM**:
+- **Model:** `meta/llama-4-maverick-17b-128e-instruct`
+- **Endpoint:** `https://integrate.api.nvidia.com/v1/chat/completions`
+- **Klíč:** `NVIDIA_API_KEY`
+
 ---
 
 ## 📋 Krok 1: Vytvoř GitHub Personal Access Token
@@ -61,6 +66,16 @@ github_pat_xxxxxxxxxxxxxxxxxxxx
    - **Variable name:** `GITHUB_TOKEN`
    - **Value:** `github_pat_xxxxxxxxxxxxxxxxxxxx` (tvůj token)
 6. Klikni **Encrypt and save**
+
+### Varianta NVIDIA NIM
+
+Pokud chceš NVIDIA místo GitHub Models, nastav:
+- `AI_PROVIDER=nvidia`
+- `NVIDIA_API_KEY=...`
+
+Pokud chceš GitHub Models, nastav:
+- `AI_PROVIDER=github`
+- `GITHUB_TOKEN=...`
 
 ---
 

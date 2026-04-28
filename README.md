@@ -37,13 +37,45 @@ Moderní, responzivní web společnosti WHC s.r.o. s AI asistentem, SEO optimali
    - Vyber `MEVERIK-SOLUTION/whc`
    - Deploy automaticky
 
-## 🤖 AI Asistent - Setup
+## 🤖 AI Asistent - Setup (GitHub Models nebo NVIDIA NIM)
 
-Chatbot je připraven na Cloudflare Workers. Uprav v `index.html`:
+Chatbot běží přes `cloudflare-worker-template.js` a umí 2 providery:
+
+- `github` (default) přes `GITHUB_TOKEN`
+- `nvidia` přes `NVIDIA_API_KEY` (NVIDIA NIM endpoint)
+
+### 1) Nasazení Workeru
+
+1. Vytvoř Cloudflare Worker.
+2. Vlož obsah souboru `cloudflare-worker-template.js`.
+3. Deploy.
+
+### 2) Environment variables v Cloudflare
+
+Pro GitHub Models:
+
+- `AI_PROVIDER=github`
+- `GITHUB_TOKEN=...`
+
+Pro NVIDIA NIM:
+
+- `AI_PROVIDER=nvidia`
+- `NVIDIA_API_KEY=...`
+
+### 3) Propojení frontendu
+
+V `index.html` uprav hodnotu:
 
 ```javascript
-const workerURL = 'https://your-worker.workers.dev/api/chat';
+const workerURL = 'https://YOUR_WORKER_SUBDOMAIN.workers.dev/api/chat';
 ```
+
+### 4) Test
+
+- Otevři web.
+- Klikni na AI chat.
+- Napiš dotaz.
+- Pokud odpovídá, integrace je hotová.
 
 ## 📧 Kontakt
 
