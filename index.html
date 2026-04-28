@@ -34,17 +34,50 @@
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+    :root {
+      --bg-0: #070b14;
+      --bg-1: #0f172a;
+      --bg-2: #111f35;
+      --line: rgba(148, 163, 184, 0.14);
+      --glow-cyan: rgba(34, 211, 238, 0.25);
+      --glow-teal: rgba(45, 212, 191, 0.22);
+      --panel-stroke: rgba(255, 255, 255, 0.12);
+    }
     body {
       font-family: 'Inter', sans-serif;
-      background: #0f172a;
+      background:
+        radial-gradient(1000px 550px at 20% -10%, rgba(45, 212, 191, 0.13), transparent 65%),
+        radial-gradient(900px 500px at 85% 10%, rgba(59, 130, 246, 0.15), transparent 60%),
+        linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 48%, var(--bg-2) 100%);
       color: #f8fafc;
       transition: background-color .25s, color .25s;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 40px 40px;
+      -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+      mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+      pointer-events: none;
     }
     .glass {
       background: rgba(30, 41, 59, 0.68);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--panel-stroke);
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
+      box-shadow: 0 18px 35px rgba(2, 8, 23, 0.4);
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+    .glass:hover {
+      transform: translateY(-4px);
+      border-color: rgba(45, 212, 191, 0.45);
+      box-shadow: 0 24px 45px rgba(2, 8, 23, 0.52), 0 0 0 1px rgba(34, 211, 238, 0.2) inset;
     }
     body.light-mode {
       background: #f1f5f9;
@@ -59,6 +92,9 @@
     body.light-mode .dark-900 { background-color: #f8fafc; }
     body.light-mode .dark-800 { background-color: #e2e8f0; }
     body.light-mode .dark-700 { background-color: #cbd5e1; }
+    body.light-mode::before {
+      opacity: .28;
+    }
     .hero-accent {
       color: #22d3ee;
       text-shadow: 0 0 28px rgba(34, 211, 238, 0.28);
@@ -74,6 +110,119 @@
     body.light-mode .hero-accent {
       color: #0f766e;
       text-shadow: none;
+    }
+    .hero-scan {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 25%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.85), transparent);
+      opacity: .5;
+      animation: scan 7s linear infinite;
+      pointer-events: none;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(55px);
+      opacity: .34;
+      pointer-events: none;
+      animation: orbit 10s ease-in-out infinite;
+    }
+    .orb-a {
+      width: 220px;
+      height: 220px;
+      background: var(--glow-cyan);
+      top: 12%;
+      right: 9%;
+    }
+    .orb-b {
+      width: 180px;
+      height: 180px;
+      background: var(--glow-teal);
+      bottom: 12%;
+      left: 6%;
+      animation-delay: 1.8s;
+    }
+    .telemetry {
+      margin-top: 1.75rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .telemetry-card {
+      border: 1px solid rgba(51, 65, 85, 0.8);
+      background: rgba(15, 23, 42, 0.55);
+      border-radius: 0.9rem;
+      padding: 0.85rem 1rem;
+      text-align: left;
+    }
+    .telemetry-label {
+      font-size: .66rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+    .telemetry-value {
+      margin-top: .2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .pulse-link {
+      position: relative;
+      overflow: hidden;
+    }
+    .pulse-link::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+    .pulse-link:hover::after {
+      opacity: 1;
+    }
+    @keyframes orbit {
+      0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+      50% { transform: translateY(-14px) translateX(8px) scale(1.06); }
+    }
+    @keyframes scan {
+      0% { transform: translateY(-130px); }
+      100% { transform: translateY(250px); }
+    }
+    @media (max-width: 760px) {
+      .telemetry {
+        grid-template-columns: 1fr;
+      }
+      .orb {
+        opacity: .24;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-scan,
+      .orb,
+      .reveal {
+        animation: none;
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
     }
     .no-scrollbar::-webkit-scrollbar { display: none; }
   </style>
@@ -112,10 +261,13 @@
   </nav>
 
   <header class="relative overflow-hidden pt-32 pb-20 md:pt-44 md:pb-28">
+    <div class="hero-scan"></div>
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
     <div class="absolute left-1/2 top-0 h-[480px] w-[1000px] -translate-x-1/2 opacity-20">
       <div class="h-full w-full rounded-full bg-gradient-to-r from-brand-500 to-cyan-500 blur-[110px]"></div>
     </div>
-    <div class="container relative z-10 mx-auto max-w-4xl px-6 text-center">
+    <div class="container relative z-10 mx-auto max-w-4xl px-6 text-center reveal">
       <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-400">Technologická integrace & strategie</p>
       <h1 class="mb-7 text-5xl font-extrabold leading-tight text-white md:text-7xl">
         Propojujeme fyzický svět s
@@ -125,36 +277,50 @@
         Vyvíjíme nástroje pro Spatial Computing, navrhujeme robustní software a pomáháme klientům proměnit investiční záměry v reálný výsledek.
       </p>
       <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <a href="#expertyza" class="rounded-full bg-brand-600 px-8 py-3.5 font-semibold text-white hover:bg-brand-500">Prozkoumat zaměření</a>
-        <a href="#kontakt" class="rounded-full border border-slate-600 bg-dark-800 px-8 py-3.5 font-semibold text-slate-200 hover:border-slate-400">Nezávazná konzultace</a>
+        <a href="#expertyza" class="pulse-link rounded-full bg-brand-600 px-8 py-3.5 font-semibold text-white hover:bg-brand-500">Prozkoumat zaměření</a>
+        <a href="#kontakt" class="pulse-link rounded-full border border-slate-600 bg-dark-800 px-8 py-3.5 font-semibold text-slate-200 hover:border-slate-400">Nezávazná konzultace</a>
+      </div>
+      <div class="telemetry">
+        <div class="telemetry-card">
+          <div class="telemetry-label">Deployment Cadence</div>
+          <div class="telemetry-value">Continuous</div>
+        </div>
+        <div class="telemetry-card">
+          <div class="telemetry-label">System Reliability</div>
+          <div class="telemetry-value">99.9% Target</div>
+        </div>
+        <div class="telemetry-card">
+          <div class="telemetry-label">Data Pipeline</div>
+          <div class="telemetry-value">Real-time Ready</div>
+        </div>
       </div>
     </div>
   </header>
 
-  <section id="expertyza" class="border-y border-slate-800 bg-dark-900 py-24">
+  <section id="expertyza" class="reveal border-y border-slate-800 bg-dark-900 py-24">
     <div class="container mx-auto px-6">
       <div class="mb-14 text-center">
         <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Oblasti naší expertyzy</h2>
         <p class="theme-text mx-auto max-w-2xl text-slate-400">Spojujeme engineering, data a strategii do jednoho funkčního celku.</p>
       </div>
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <article class="glass rounded-3xl p-8">
+        <article class="glass reveal rounded-3xl p-8">
           <i data-lucide="scan-line" class="mb-5 h-8 w-8 text-brand-400"></i>
           <h3 class="mb-2 text-xl font-bold text-white">Spatial Computing & LiDAR</h3>
           <p class="theme-text text-sm leading-relaxed text-slate-400">Nativní iOS řešení, RoomPlan API a 3D skenování prostor pro digitalizaci budov.</p>
         </article>
-        <article class="glass rounded-3xl p-8">
+        <article class="glass reveal rounded-3xl p-8">
           <i data-lucide="server" class="mb-5 h-8 w-8 text-cyan-400"></i>
           <h3 class="mb-2 text-xl font-bold text-white">Systémová architektura</h3>
           <p class="theme-text text-sm leading-relaxed text-slate-400">Backend, datové modely, cloud infrastruktura a bezpečné integrační toky.</p>
         </article>
-        <article class="glass rounded-3xl p-8">
+        <article class="glass reveal rounded-3xl p-8">
           <i data-lucide="building-2" class="mb-5 h-8 w-8 text-indigo-400"></i>
           <h3 class="mb-2 text-xl font-bold text-white">Digitalizace & Light BIM</h3>
           <p class="theme-text text-sm leading-relaxed text-slate-400">Napojení fyzických skenů na BIM procesy, CDE a energetické podklady.</p>
         </article>
       </div>
-      <article class="glass mt-8 rounded-3xl p-8">
+      <article class="glass reveal mt-8 rounded-3xl p-8">
         <i data-lucide="briefcase" class="mb-5 h-8 w-8 text-emerald-400"></i>
         <h3 class="mb-2 text-xl font-bold text-white">Dotační strategie a projektové řízení</h3>
         <p class="theme-text text-sm leading-relaxed text-slate-400">Řízení investičních celků, dotační titulování (NPO, IROP, OP TAK, SFPI) a optimalizace návratnosti kapitálu.</p>
@@ -162,7 +328,7 @@
     </div>
   </section>
 
-  <section class="border-b border-slate-800 bg-dark-800 py-12">
+  <section class="reveal border-b border-slate-800 bg-dark-800 py-12">
     <div class="container mx-auto px-6">
       <p class="mb-6 text-center text-xs uppercase tracking-[0.2em] text-slate-500">Důvěra & standard</p>
       <div class="grid grid-cols-2 gap-5 text-center sm:grid-cols-5">
@@ -175,7 +341,7 @@
     </div>
   </section>
 
-  <section id="tech-stack" class="border-y border-slate-800 bg-dark-900 py-20">
+  <section id="tech-stack" class="reveal border-y border-slate-800 bg-dark-900 py-20">
     <div class="container mx-auto px-6 text-center">
       <p class="mb-10 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Náš technologický stack</p>
       <div class="flex flex-wrap justify-center gap-4">
@@ -188,7 +354,7 @@
     </div>
   </section>
 
-  <section id="o-nas" class="bg-dark-800 py-24">
+  <section id="o-nas" class="reveal bg-dark-800 py-24">
     <div class="container mx-auto max-w-4xl px-6">
       <div class="glass rounded-3xl p-8 md:p-12">
         <h2 class="mb-5 text-3xl font-bold text-white">O společnosti WHC</h2>
@@ -198,7 +364,7 @@
     </div>
   </section>
 
-  <section class="border-y border-brand-500/30 bg-gradient-to-r from-brand-500/10 to-cyan-500/10 py-16">
+  <section class="reveal border-y border-brand-500/30 bg-gradient-to-r from-brand-500/10 to-cyan-500/10 py-16">
     <div class="container mx-auto max-w-2xl px-6 text-center">
       <h2 class="mb-4 text-3xl font-bold text-white">Chcete zůstat v obraze?</h2>
       <p class="theme-text mb-8 text-slate-400">Jednou za čas pošleme praktické update o Spatial Computing, BIM a inovacích.</p>
@@ -210,7 +376,7 @@
     </div>
   </section>
 
-  <footer id="kontakt" class="border-t border-slate-800 bg-dark-900 pt-20 pb-10">
+  <footer id="kontakt" class="reveal border-t border-slate-800 bg-dark-900 pt-20 pb-10">
     <div class="container mx-auto px-6">
       <div class="mb-14 grid grid-cols-1 gap-12 md:grid-cols-2">
         <div>
@@ -241,6 +407,7 @@
         </div>
       </div>
       <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+        <p class="mb-3 text-xs uppercase tracking-[0.15em] text-cyan-400">System Status: Operational</p>
         &copy; <span id="year"></span> WHC s.r.o. Všechna práva vyhrazena.
       </div>
     </div>
@@ -331,6 +498,21 @@
         navbar.classList.remove('bg-dark-900/90', 'border-b', 'border-slate-800');
       }
     });
+
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('visible'));
+    }
 
     const contactForm = document.querySelector('form[name="contact"]');
     if (contactForm) {
