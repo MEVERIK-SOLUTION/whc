@@ -102,7 +102,8 @@
     <div class="container relative z-10 mx-auto max-w-4xl px-6 text-center">
       <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-400">Technologická integrace & strategie</p>
       <h1 class="mb-7 text-5xl font-extrabold leading-tight text-white md:text-7xl">
-        Propojujeme fyzický svět s <span class="bg-gradient-to-r from-brand-400 to-cyan-400 bg-clip-text text-transparent">digitální realitou</span>
+        Propojujeme fyzický svět s
+        <span class="block bg-gradient-to-r from-brand-400 to-cyan-400 bg-clip-text text-transparent">digitální realitou</span>
       </h1>
       <p class="theme-text mb-9 text-lg text-slate-400 md:text-xl">
         Vyvíjíme nástroje pro Spatial Computing, navrhujeme robustní software a pomáháme klientům proměnit investiční záměry v reálný výsledek.
@@ -398,7 +399,7 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
       try {
-        const workerURL = 'https://YOUR_WORKER_SUBDOMAIN.workers.dev/api/chat';
+        const workerURL = 'https://whc-ai-asistent.matejkocanda.workers.dev/api/chat';
         const response = await fetch(workerURL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
