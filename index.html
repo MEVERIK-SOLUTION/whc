@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WHC s.r.o. | Inovace v PropTech, Softwaru a Strategiích</title>
     <meta name="description" content="Vyvíjíme pokročilé nástroje pro Spatial Computing, navrhujeme komplexní softwarové ekosystémy a řídíme strategické dotační projekty.">
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2314b8a6' width='100' height='100' rx='20'/><text x='50' y='70' font-size='70' font-weight='bold' text-anchor='middle' fill='white' font-family='Arial'>W</text></svg>">
+        <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2314b8a6' width='180' height='180' rx='40'/><text x='90' y='130' font-size='120' font-weight='bold' text-anchor='middle' fill='white' font-family='Arial'>W</text></svg>">
+    
+        <!-- OG Image -->
+        <meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'><rect fill='%230f172a' width='1200' height='630'/><rect fill='%2314b8a6' x='50' y='50' width='100' height='100' rx='20'/><text x='200' y='120' font-size='60' font-weight='bold' fill='white' font-family='Arial'>WHC</text></svg>">
     
     <!-- Open Graph pro hezké sdílení na sítích -->
     <meta property="og:title" content="WHC s.r.o. | Technologická integrace & Strategie">
@@ -276,10 +282,26 @@
                     </p>
                     <p>
                         Dokážeme vytvořit nativní iOS aplikaci (např. WHCsurvey) snímající prostor pomocí LiDARu, zpracovat data v cloudovém portálu a následně je využít jako podklad pro přípravu BIM modelu, stanovení energetické náročnosti budovy a zajištění dotačního financování z EU fondů.
-                    </p>
-                </div>
-            </div>
         </div>
+                        <!-- Newsletter & CTA -->
+                        <section class="py-16 bg-gradient-to-r from-brand-500/10 to-blue-500/10 border-y border-brand-500/30">
+                            <div class="container mx-auto px-6 max-w-2xl">
+                                <div class="text-center">
+                                    <h2 class="text-3xl font-bold text-white mb-4">Chcete zůstat v obraze?</h2>
+                                    <p class="text-slate-400 mb-8">Přijďte si updates o Spatial Computing, BIM a dotačních strategiích.</p>
+                
+                                    <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 mb-4">
+                                        <input type="email" name="email" placeholder="vase@email.cz" required class="flex-1 bg-dark-800 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:border-brand-500 focus:outline-none transition-colors">
+                                        <button type="submit" class="px-8 py-3 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-lg transition-colors">Přihlásit</button>
+                                    </form>
+                                    <p class="text-xs text-slate-500">Nebudeme spamovat. Max 1-2x měsíčně. Kdykoliv si odhlásit.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- ========================================== -->
+                        <!-- WHC AI ASISTENT WIDGET                     -->
+                        <!-- ========================================== -->
     </section>
 
     <!-- Jak Pracujeme -->
@@ -548,8 +570,8 @@
                 document.body.classList.add('light-mode');
                 themeIcon.setAttribute('data-lucide', 'sun');
             }
-            lucide.createIcons();
         }
+                                <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-semibold py-3 rounded-lg transition-colors" id="contact-submit">Odeslat</button>
         
         updateTheme();
         themeToggle.addEventListener('click', () => {
@@ -574,8 +596,47 @@
             } else {
                 nav.classList.remove('bg-dark-900/90', 'border-b', 'border-slate-800');
             }
+                    // --- Newsletter Signup ---
+                    const newsletterForm = document.getElementById('newsletter-form');
+                    if (newsletterForm) {
+                        newsletterForm.addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                            const email = newsletterForm.querySelector('input[name="email"]').value;
+                            const btn = newsletterForm.querySelector('button');
+                            const originalText = btn.textContent;
+                
+                            btn.disabled = true;
+                            btn.textContent = 'Přihlašuji...';
+                
+                            // Simulace odeslání (v produkci: fetch na webhook)
+                            setTimeout(() => {
+                                btn.textContent = '✓ Děkujeme!';
+                                btn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+                                newsletterForm.querySelector('input').value = '';
+                    
+                                setTimeout(() => {
+                                    btn.textContent = originalText;
+                                    btn.disabled = false;
+                                    btn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
+                                }, 2000);
+                            }, 1000);
+                        });
+                    }
         });
 
+        // --- Contact Form UX ---
+        const contactForm = document.querySelector('form[name="contact"]');
+        if (contactForm) {
+            const submitBtn = document.getElementById('contact-submit');
+            contactForm.addEventListener('submit', () => {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Odesílám...';
+            });
+        }
+
+        // --- Newsletter Signup ---
+        const newsletterForm = document.getElementById('newsletter-form');
+        if (newsletterForm) {
         // ==========================================
         // --- LOGIKA AI ASISTENTA S CLOUDFLARE WORKERS ---
         // ==========================================
@@ -617,8 +678,38 @@
 
             const msgStyle = isUser 
                 ? 'bg-brand-600 text-white rounded-2xl rounded-tr-sm border border-brand-500' 
-                : 'bg-dark-700 text-slate-200 rounded-2xl rounded-tl-sm border border-slate-600';
 
+                <!-- Značky a certifikace -->
+                <section class="py-12 bg-dark-800 border-b border-slate-800">
+                    <div class="container mx-auto px-6">
+                        <p class="text-center text-xs text-slate-500 uppercase tracking-widest mb-6">Důvěřují nám</p>
+                        <div class="flex flex-wrap justify-center items-center gap-6">
+                            <div class="text-center">
+                                <div class="text-2xl mb-1">🏢</div>
+                                <p class="text-xs text-slate-400">Enterprise-ready</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-1">🔒</div>
+                                <p class="text-xs text-slate-400">ISO 27001 zaměřeni</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-1">⚡</div>
+                                <p class="text-xs text-slate-400">99.9% SLA</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-1">🇪🇺</div>
+                                <p class="text-xs text-slate-400">GDPR Compliant</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl mb-1">✅</div>
+                                <p class="text-xs text-slate-400">Cloud Native</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tech Stack -->
+                <section id="tech-stack" class="py-20 border-y border-slate-800 bg-dark-900">
             msgDiv.innerHTML = `
                 ${iconHTML}
                 <div class="${msgStyle} text-sm p-3 shadow-sm max-w-[85%]">

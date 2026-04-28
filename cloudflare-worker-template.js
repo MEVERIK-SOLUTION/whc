@@ -1,32 +1,35 @@
 /**
- * WHC AI Asistent - Cloudflare Worker
+ * WHC AI Asistent - Cloudflare Worker s GitHub Models
  * 
- * Tento worker obsluhuje AI chatbota na webu WHC.
- * Nasaď na https://workers.cloudflare.com
+ * Propojení: Cloudflare Worker → GitHub Models API
+ * Model: gpt-4o-mini (zdarma v rámci GitHub Copilot)
  * 
  * Setup:
- * 1. Vytvoř nový Worker
+ * 1. https://workers.cloudflare.com → Create Worker
  * 2. Zkopíruj tento kód
- * 3. Přidej env proměnné (pokud používáš vlastní model)
- * 4. Nasaď
- * 5. Uprav URL v index.html na tvůj Worker URL
+ * 3. Přidej env vars (viz níže)
+ * 4. Deploy
+ * 5. Uprav Worker URL v index.html
  */
 
 export default {
   async fetch(request, env, ctx) {
-    // Povolení CORS
+    // CORS headers
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
     if (request.method === 'OPTIONS') {
-      return new Response('OK', {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
-        }
-      });
+      return new Response('OK', { headers: corsHeaders });
     }
 
     if (request.method !== 'POST') {
-      return new Response('Method not allowed', { status: 405 });
+      return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+        status: 405,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
     }
 
     try {
@@ -36,133 +39,118 @@ export default {
         return new Response(JSON.stringify({ error: 'Message is required' }), { status: 400 });
       }
 
-      // ============================================
-      // VOLBA AI BACKENDU
-      // ============================================
-
-      // 1. CLOUDFLARE AI (bez API klíče - integrované)
-      // Kompatibilní modely: meta/llama-2-7b-chat-int8, mistral-7b-instruct-v0.1
-      
-      const reply = await generateWithCloudflareAI(message, context, env);
-
-      // ============================================
+      // Volání GitHub Models (v rámci Copilot předplatného)
+      const reply = await generateWithGitHubModels(message, context, env);
 
       return new Response(JSON.stringify({ reply }), {
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
+          ...corsHeaders
         }
       });
 
     } catch (error) {
       console.error('Error:', error);
       return new Response(JSON.stringify({
-        reply: 'Omlouváme se, došlo k chybě. Zkuste později.'
+        reply: '😅 Omlouváme se, AI je právě unavená. Zkuste za chvíli nebo napište nám na info@whc.cz'
       }), {
         status: 500,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
   }
 };
 
 /**
- * Cloudflare AI (doporučeno - bez dalších API klíčů)
- */
-async function generateWithCloudflareAI(message, context, env) {
-  try {
-    // Použij Cloudflare AI binding (musí být nastaveno v wrangler.toml)
-    // Nebo zavolej API přímo - zatím jen mock
-    
-    const systemPrompt = context || 'Jste AI asistent společnosti WHC s.r.o. Odpovídejte česky, stručně a přátelsky.';
-    
-    // Příklad odpovědi (v produkci napojit na model)
-    const responses = {
-      'ahoj': 'Ahoj! Jak ti mohu pomoci?',
-      'spatial': 'Spatial Computing je technologie, která propojuje fyzický svět s digitální realitou. WHC se v tom specialistuje!',
-      'lidar': 'LiDAR je senzor, který skenuje prostory 3D paprskami. Našich apps jej využívají pro digitalizaci budov.',
-      'bim': 'BIM (Building Information Modeling) je komplexní digitální model budovy. Propojujeme jej s našimi skeny.',
-      'dotace': 'Naší specialitou je strategické řízení projektů s dotačním financováním z EU.',
-      'kontakt': 'Kontaktujte nás na info@whc.cz nebo zaplňte formulář na webu.'
-    };
-
-    // Hledej klíčová slova v dotazu
-    const lowerMsg = message.toLowerCase();
-    for (const [key, value] of Object.entries(responses)) {
-      if (lowerMsg.includes(key)) {
-        return value;
-      }
-    }
-
-    // Default odpověď
-    return `Na vaši zprávu "${message}" jsem připravený odpovědět. Zkuste se zeptat na: Spatial Computing, LiDAR, BIM, dotace, nebo kontakt.`;
-
-  } catch (error) {
-    console.error('CF AI Error:', error);
-    return 'Omlouváme se, AI model není dostupný. Napište nám na info@whc.cz';
-  }
-}
-
-/**
- * GitHub Models - Alternativa (vyžaduje API klíč)
- * Aktivuj: const reply = await generateWithGitHubModels(message, context, env);
+ * GitHub Models - AI Asistent (GPT-4o-mini)
+ * ZDARMA v rámci GitHub Copilot předplatného
+ * 
+ * Env vars potřebné:
+ * - GITHUB_TOKEN: tvůj GitHub personal access token
  */
 async function generateWithGitHubModels(message, context, env) {
   const apiKey = env.GITHUB_TOKEN;
+  
   if (!apiKey) {
-    throw new Error('GITHUB_TOKEN not configured');
+    console.error('GITHUB_TOKEN not configured');
+    return 'Omlouváme se, AI je právě nedostupná. Správce ji právě konfiguruje.';
   }
 
-  const response = await fetch('https://models.inference.ai.azure.com/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: context || 'You are a helpful assistant.' },
-        { role: 'user', content: message }
-      ],
-      max_tokens: 1024,
-    })
-  });
+  try {
+    const systemPrompt = context || `Jste AI asistent společnosti WHC s.r.o.
+Specialisté jsme na: Spatial Computing, LiDAR, BIM, digitalizace budov, Apple ekosystém.
+Odpovídejte česky, stručně, přátelsky a profesionálně.
+Buďte užiteční a doporučujte kontakt na info@whc.cz pro hlubší diskusi.`;
 
-  if (!response.ok) {
-    throw new Error(`GitHub Models API error: ${response.status}`);
+    const response = await fetch('https://models.inference.ai.azure.com/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',  // Zdarma model
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: message }
+        ],
+        temperature: 0.7,
+        max_tokens: 500,
+        top_p: 1.0
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      console.error('GitHub Models API error:', response.status, error);
+      
+      if (response.status === 401) {
+        return 'API token je neplatný. Prosím, zkontroluj GITHUB_TOKEN v Cloudflare Workers environment.';
+      }
+      if (response.status === 429) {
+        return 'Příliš mnoho dotazů. Zkuste za chvíli.';
+      }
+      
+      return 'Chyba AI modelu. Zkuste později.';
+    }
+
+    const data = await response.json();
+    
+    if (!data.choices || !data.choices[0]?.message?.content) {
+      console.error('Unexpected response format:', data);
+      return 'Omlouváme se, model vrátil neplatnou odpověď.';
+    }
+
+    return data.choices[0].message.content;
+
+  } catch (error) {
+    console.error('GitHub Models fetch error:', error);
+    return 'Síťová chyba. Zkuste znovu.';
   }
-
-  const data = await response.json();
-  return data.choices[0].message.content;
 }
 
 /**
- * OpenAI - Alternativa (vyžaduje API klíč)
- * Aktivuj: const reply = await generateWithOpenAI(message, context, env);
+ * FALLBACK - Cloudflare AI (pokud GitHub Models selže)
+ * Obsahuje vestavěné modely bez API klíče
  */
-async function generateWithOpenAI(message, context, env) {
-  const apiKey = env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error('OPENAI_API_KEY not configured');
+async function generateWithCloudflareAI(message, context, env) {
+  // Toto je mock - Cloudflare AI vyžaduje AI bindings
+  const responses = {
+    'ahoj': 'Ahoj! Jak vám mohu pomoci?',
+    'spatial': '🏢 Spatial Computing propojuje fyzický svět s digitální realitou pomocí LiDARu a 3D modelů.',
+    'lidar': '📡 LiDAR je senzor, který skenuje prostory pomocí paprsků. Používáme ho pro digitalizaci budov.',
+    'bim': '🏗️ BIM je Building Information Model - komplexní digitální model stavby.',
+    'dotace': '💰 Řídíme projekty s dotačním financováním z EU fondů (NPO, IROP, OP TAK, SFPI).',
+    'kontakt': '📧 Napiš nám na info@whc.cz nebo vyplň formulář na webu.'
+  };
+
+  const lowerMsg = message.toLowerCase();
+  for (const [key, value] of Object.entries(responses)) {
+    if (lowerMsg.includes(key)) {
+      return value;
+    }
   }
 
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'gpt-4',
-      messages: [
-        { role: 'system', content: context || 'You are a helpful assistant.' },
-        { role: 'user', content: message }
-      ],
-      max_tokens: 500,
-    })
-  });
-
-  const data = await response.json();
-  return data.choices[0].message.content;
+  return `Děkuji za otázku. Více informací najdeš na webu nebo nás kontaktuj na info@whc.cz`;
 }
+
