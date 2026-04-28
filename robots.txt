@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /.netlify
+Disallow: /.git
+
+Sitemap: https://whc.cz/sitemap.xml
