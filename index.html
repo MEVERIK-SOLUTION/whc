@@ -59,6 +59,22 @@
     body.light-mode .dark-900 { background-color: #f8fafc; }
     body.light-mode .dark-800 { background-color: #e2e8f0; }
     body.light-mode .dark-700 { background-color: #cbd5e1; }
+    .hero-accent {
+      color: #22d3ee;
+      text-shadow: 0 0 28px rgba(34, 211, 238, 0.28);
+    }
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+      .hero-accent {
+        background: linear-gradient(90deg, #2dd4bf 0%, #22d3ee 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+    }
+    body.light-mode .hero-accent {
+      color: #0f766e;
+      text-shadow: none;
+    }
     .no-scrollbar::-webkit-scrollbar { display: none; }
   </style>
 </head>
@@ -103,7 +119,7 @@
       <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-400">Technologická integrace & strategie</p>
       <h1 class="mb-7 text-5xl font-extrabold leading-tight text-white md:text-7xl">
         Propojujeme fyzický svět s
-        <span class="block bg-gradient-to-r from-brand-400 to-cyan-400 bg-clip-text text-transparent">digitální realitou</span>
+        <span class="hero-accent block">digitální realitou</span>
       </h1>
       <p class="theme-text mb-9 text-lg text-slate-400 md:text-xl">
         Vyvíjíme nástroje pro Spatial Computing, navrhujeme robustní software a pomáháme klientům proměnit investiční záměry v reálný výsledek.
