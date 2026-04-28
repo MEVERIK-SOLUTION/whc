@@ -270,6 +270,84 @@
       0% { transform: translateY(-130px); }
       100% { transform: translateY(250px); }
     }
+    @keyframes constellation {
+      0%, 100% { opacity: 0.15; filter: drop-shadow(0 0 8px rgba(45, 212, 191, 0.3)); }
+      50% { opacity: 0.35; filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.45)); }
+    }
+    @keyframes pulse-cta {
+      0%, 100% { transform: translateX(0); opacity: 1; }
+      50% { transform: translateX(4px); opacity: 0.7; }
+    }
+    .constellation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+      animation: constellation 8s ease-in-out infinite;
+      overflow: hidden;
+    }
+    .cta-btn {
+      position: relative;
+      background: linear-gradient(135deg, rgba(45, 212, 191, 0.95) 0%, rgba(34, 211, 238, 0.85) 100%);
+      border: 2px solid rgba(45, 212, 191, 0.8);
+      transition: all .35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 30px rgba(45, 212, 191, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    .cta-btn:hover {
+      background: linear-gradient(135deg, rgba(45, 212, 191, 1) 0%, rgba(34, 211, 238, 1) 100%);
+      border-color: rgba(34, 211, 238, 1);
+      box-shadow: 0 0 50px rgba(34, 211, 238, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .cta-icon {
+      display: inline-block;
+      margin-left: 0.5rem;
+      animation: pulse-cta 2s ease-in-out infinite;
+    }
+    .terminal-status {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: #14b8a6;
+      background: rgba(7, 11, 20, 0.8);
+      border: 1px solid rgba(45, 212, 191, 0.3);
+      border-radius: 0.6rem;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: inset 0 0 12px rgba(45, 212, 191, 0.08);
+    }
+    .terminal-status::before {
+      content: '●';
+      color: #22c55e;
+      font-size: 0.9rem;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 49%, 100% { opacity: 1; }
+      50%, 99% { opacity: 0.4; }
+    }
+    .terminal-status::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.5), transparent);
+      animation: scan-line 3s linear infinite;
+    }
+    @keyframes scan-line {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
     @media (max-width: 760px) {
       .telemetry {
         grid-template-columns: 1fr;
@@ -282,7 +360,11 @@
       .hero-scan,
       .orb,
       .reveal,
-      .card-icon {
+      .card-icon,
+      .constellation,
+      .cta-icon,
+      .terminal-status::before,
+      .terminal-status::after {
         animation: none;
         transition: none;
         opacity: 1;
@@ -329,6 +411,28 @@
     <div class="hero-scan"></div>
     <div class="orb orb-a"></div>
     <div class="orb orb-b"></div>
+    <svg class="constellation" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="constellation-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+        </filter>
+      </defs>
+      <circle cx="150" cy="100" r="2" fill="rgba(45, 212, 191, 0.6)" filter="url(#constellation-glow)"/>
+      <circle cx="280" cy="140" r="1.5" fill="rgba(34, 211, 238, 0.5)" filter="url(#constellation-glow)"/>
+      <circle cx="420" cy="80" r="2" fill="rgba(45, 212, 191, 0.5)" filter="url(#constellation-glow)"/>
+      <circle cx="580" cy="120" r="1.5" fill="rgba(34, 211, 238, 0.6)" filter="url(#constellation-glow)"/>
+      <circle cx="750" cy="90" r="2" fill="rgba(45, 212, 191, 0.4)" filter="url(#constellation-glow)"/>
+      <circle cx="850" cy="150" r="1.5" fill="rgba(34, 211, 238, 0.5)" filter="url(#constellation-glow)"/>
+      <circle cx="200" cy="300" r="1.5" fill="rgba(45, 212, 191, 0.5)" filter="url(#constellation-glow)"/>
+      <circle cx="450" cy="320" r="2" fill="rgba(34, 211, 238, 0.6)" filter="url(#constellation-glow)"/>
+      <circle cx="750" cy="280" r="1.5" fill="rgba(45, 212, 191, 0.5)" filter="url(#constellation-glow)"/>
+      <line x1="150" y1="100" x2="280" y2="140" stroke="rgba(45, 212, 191, 0.15)" stroke-width="0.8"/>
+      <line x1="280" y1="140" x2="420" y2="80" stroke="rgba(34, 211, 238, 0.15)" stroke-width="0.8"/>
+      <line x1="420" y1="80" x2="580" y2="120" stroke="rgba(45, 212, 191, 0.15)" stroke-width="0.8"/>
+      <line x1="750" y1="90" x2="850" y2="150" stroke="rgba(34, 211, 238, 0.15)" stroke-width="0.8"/>
+      <line x1="200" y1="300" x2="450" y2="320" stroke="rgba(45, 212, 191, 0.15)" stroke-width="0.8"/>
+      <line x1="450" y1="320" x2="750" y2="280" stroke="rgba(34, 211, 238, 0.15)" stroke-width="0.8"/>
+    </svg>
     <div class="absolute left-1/2 top-0 h-[480px] w-[1000px] -translate-x-1/2 opacity-20">
       <div class="h-full w-full rounded-full bg-gradient-to-r from-brand-500 to-cyan-500 blur-[110px]"></div>
     </div>
@@ -342,8 +446,8 @@
         Vyvíjíme nástroje pro Spatial Computing, navrhujeme robustní software a pomáháme klientům proměnit investiční záměry v reálný výsledek.
       </p>
       <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <a href="#expertyza" class="pulse-link rounded-full bg-brand-600 px-8 py-3.5 font-semibold text-white hover:bg-brand-500">Prozkoumat zaměření</a>
-        <a href="#kontakt" class="pulse-link rounded-full border border-slate-600 bg-dark-800 px-8 py-3.5 font-semibold text-slate-200 hover:border-slate-400">Nezávazná konzultace</a>
+        <a href="#expertyza" class="cta-btn pulse-link rounded-full px-8 py-3.5 font-semibold text-white">Prozkoumat zaměření <span class="cta-icon">→</span></a>
+        <a href="#kontakt" class="pulse-link rounded-full border border-slate-600 bg-dark-800 px-8 py-3.5 font-semibold text-slate-200 hover:border-slate-400 transition-all .3s">Nezávazná konzultace <span class="cta-icon">↓</span></a>
       </div>
       <div class="telemetry">
         <div class="telemetry-card">
@@ -472,7 +576,8 @@
         </div>
       </div>
       <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-        <p class="mb-3 text-xs uppercase tracking-[0.15em] text-cyan-400">System Status: Operational</p>
+        <div class="terminal-status">$ whc status --system</div>
+        <p class="mb-3 text-xs uppercase tracking-[0.15em] text-cyan-400">System: Operational | AI: Active | Services: Online</p>
         &copy; <span id="year"></span> WHC s.r.o. Všechna práva vyhrazena.
       </div>
     </div>
